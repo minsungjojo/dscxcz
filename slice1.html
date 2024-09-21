@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2011년 대비 연간 수익률 차트</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        #chart {
+            max-width: 800px;
+            margin: 35px auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="chart"></div>
+
+    <script>
+        const data = [
+            { "year": 2017, "return_2011": 13.690243446858851 },
+            { "year": 2019, "return_2011": 0.9278251089328984 },
+            { "year": 2020, "return_2011": 3.019941408335101 },
+            { "year": 2013, "return_2011": 54.811250925240564 },
+            { "year": 2021, "return_2011": 0.6014100202437538 },
+            { "year": 2011, "return_2011": 13.166666666666668 },
+            { "year": 2024, "return_2011": 0.37641642097534933 },
+            { "year": 2022, "return_2011": -0.6428066931761485 },
+            { "year": 2015, "return_2011": 0.34368368493321677 },
+            { "year": 2012, "return_2011": 1.8495762711864407 },
+            { "year": 2018, "return_2011": -0.7349647822451496 },
+            { "year": 2014, "return_2011": -0.5758904327324265 },
+            { "year": 2016, "return_2011": 1.2375092867756314 },
+            { "year": 2023, "return_2011": 1.557694447468041 }
+        ];
+
+        // 데이터를 년도 순으로 정렬
+        const sortedData = data.sort((a, b) => a.year - b.year);
+
+        const options = {
+            chart: {
+                type: 'line',
+                height: 350
+            },
+            series: [{
+                name: '2011년 대비 수익률',
+                data: sortedData.map(item => item.return_2011 * 100) // 백분율로 변환
+            }],
+            xaxis: {
+                categories: sortedData.map(item => item.year.toString()),
+                title: {
+                    text: '년도'
+                }
+            },
+            yaxis: {
+                title: {
+                    text: '수익률 (%)'
+                },
+                labels: {
+                    formatter: function (value) {
+                        return value.toFixed(2) + '%';
+                    }
+                }
+            },
+            title: {
+                text: '2011년 대비 연간 수익률',
+                align: 'left'
+            },
+            tooltip: {
+                y: {
+                    formatter: function (value) {
+                        return value.toFixed(2) + '%';
+                    }
+                }
+            }
+        };
+
+        const chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    </script>
+</body>
+</html>
